@@ -1,0 +1,22 @@
+-- +goose Up
+CREATE TABLE IF NOT EXISTS notes (
+  id         SERIAL PRIMARY KEY,
+  user_id    TEXT NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
+  title      VARCHAR(255) NOT NULL,
+  type       VARCHAR(20) NOT NULL CHECK(type IN ('text', 'checklist')),
+  body       TEXT NOT NULL DEFAULT '',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS checklist_items (
+  id         SERIAL PRIMARY KEY,
+  note_id    INTEGER NOT NULL REFERENCES notes(id) ON DELETE CASCADE,
+  text       TEXT NOT NULL,
+  completed  BOOLEAN NOT NULL DEFAULT false,
+  position   INTEGER NOT NULL
+);
+
+-- +goose Down
+DROP TABLE IF EXISTS checklist_items;
+DROP TABLE IF EXISTS notes;
