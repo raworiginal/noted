@@ -55,7 +55,6 @@ coverage.*
 profile.cov
 
 bin/
-api
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
