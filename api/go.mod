@@ -3,6 +3,7 @@ module github.com/raworiginal/noted
 go 1.26.1
 
 require (
+	github.com/go-chi/chi/v5 v5.2.5
 	github.com/joho/godotenv v1.5.1
 	github.com/lestrrat-go/jwx/v2 v2.1.6
 	github.com/lib/pq v1.12.0

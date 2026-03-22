@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/lestrrat-go/jwx/jwt"
 	"github.com/lestrrat-go/jwx/v2/jwk"
+	"github.com/lestrrat-go/jwx/v2/jwt"
 )
 
 type contextKey string
@@ -19,7 +19,7 @@ type AuthMiddleware struct {
 	jwksURL string
 }
 
-func newAuthMiddleware(betterAuthURL string) (*AuthMiddleware, error) {
+func NewAuthMiddleware(betterAuthURL string) (*AuthMiddleware, error) {
 	jwksURL := betterAuthURL + "/api/auth/jwks"
 	cache := jwk.NewCache(context.Background())
 	if err := cache.Register(jwksURL); err != nil {

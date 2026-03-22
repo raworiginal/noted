@@ -79,7 +79,7 @@ func (r *PGNoteRepository) FindNoteByID(noteID int) (*model.Note, error) {
 	return &note, nil
 }
 
-func (r *PGNoteRepository) ListNotes(userID int) ([]*model.Note, error) {
+func (r *PGNoteRepository) ListNotes(userID string) ([]*model.Note, error) {
 	var notes []*model.Note
 	query := `
 	SELECT id, user_id, title, type, body, created_at, updated_at FROM notes Where user_id = $1 ORDER BY created_at DESC
