@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "auth:generate": "auth generate --output ./db/schema.ts"
   },
   "dependencies": {
     "better-auth": "^1.5.5",

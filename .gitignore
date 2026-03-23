@@ -68,3 +68,4 @@ go.work.sum
 # .vscode/
 # Database
 database/
+.claude/

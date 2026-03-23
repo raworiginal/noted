@@ -38,7 +38,9 @@ async function proxy(req: NextRequest): Promise<NextResponse> {
   } as RequestInit);
 
   const body = await goRes.arrayBuffer();
-  return new NextResponse(body, {
+  const hasBody = goRes.status !== 204 && goRes.status !== 304;
+
+  return new NextResponse(hasBody ? body : null, {
     status: goRes.status,
     headers: {
       "Content-Type": goRes.headers.get("Content-Type") ?? "application/json",
