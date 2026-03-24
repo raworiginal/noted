@@ -1,11 +1,18 @@
 import LoginForm from "@/components/LoginForm";
-import RegisterForm from "@/components/RegisterForm";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (session) redirect("/dashboard");
   return (
     <>
-      <LoginForm />
-      <RegisterForm />
+      <div className="hero bg-base-100 min-h-screen">
+        <LoginForm />
+      </div>
     </>
   );
 }
