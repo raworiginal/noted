@@ -2,5 +2,5 @@
 @plugin "daisyui" {
   themes:
     cmyk --default,
-    dracula --prefersdark;
+    dark --prefersdark;
 }

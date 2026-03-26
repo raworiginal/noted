@@ -1,3 +1,4 @@
+import NoteForm from "@/components/NoteForm";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
@@ -8,5 +9,10 @@ export default async function Dashboard() {
   if (!session) {
     return "Hey! you're not supposed to be here";
   }
-  return <>hello, {session.user.username}</>;
+  return (
+    <>
+      hello, {session.user.username}
+      <NoteForm />
+    </>
+  );
 }
