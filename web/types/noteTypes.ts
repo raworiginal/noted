@@ -3,16 +3,16 @@ export interface NoteData {
   title: string;
   body: string;
   type: "text" | "checklist";
-  items: ChecklistItem[];
+  items: ChecklistItemData[];
   createdAt: Date;
   updatedAt: Date;
 }
 
-export interface ChecklistItem {
+export interface ChecklistItemData {
   id?: number;
   completed: boolean;
   text: string;
-  position: number;
+  position?: number;
 }
 
 export type CreateNoteData = Omit<NoteData, "id" | "createdAt" | "updatedAt">;

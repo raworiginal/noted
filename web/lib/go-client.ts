@@ -1,9 +1,6 @@
-// lib/go-client.ts
+"use server";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-
-export const GO_BACKEND_URL =
-  process.env.GO_BACKEND_URL ?? "http://localhost:8080";
 
 export async function getAuthHeaders() {
   const jwtResponse = await auth.api.getToken({ headers: await headers() });
