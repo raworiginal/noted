@@ -43,7 +43,8 @@ export default function NoteForm() {
     setItems(currentItems);
   }
 
-  function handleSubmit() {
+  async function handleSubmit(e: React.SubmitEvent) {
+    e.preventDefault();
     const data = {
       title: title,
       type: selected as NoteType,
@@ -55,7 +56,14 @@ export default function NoteForm() {
     } else {
       data.body = "";
     }
-    createNote(data);
+    try {
+      await fetch("/api/notes", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (
