@@ -1,18 +1,14 @@
 import NoteForm from "@/components/NoteForm";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function Dashboard() {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
   if (!session) {
-    return "Hey! you're not supposed to be here";
+    redirect("/login");
   }
-  return (
-    <>
-      hello, {session.user.username}
-      <NoteForm />
-    </>
-  );
+  return <>hello, {session.user.username}</>;
 }

@@ -3,6 +3,7 @@ import { useState } from "react";
 import ChecklistItem from "./ChecklistItem";
 import { ChecklistItemData } from "@/types/noteTypes";
 import { createNote } from "@/actions/noteActions";
+import { redirect } from "next/navigation";
 
 export default function NoteForm() {
   type NoteType = "text" | "checklist";
@@ -64,6 +65,7 @@ export default function NoteForm() {
     } catch (err) {
       console.error(err);
     }
+    redirect("/dashboard");
   }
 
   return (
