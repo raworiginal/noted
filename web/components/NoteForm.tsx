@@ -2,14 +2,16 @@
 import { useState } from "react";
 import ChecklistItem from "./ChecklistItem";
 import { ChecklistItemData } from "@/types/noteTypes";
-import { createNote } from "@/actions/noteActions";
 import { redirect } from "next/navigation";
+import { createNote } from "@/services/noteService";
 
 export default function NoteForm() {
   type NoteType = "text" | "checklist";
   const [title, setTitle] = useState("");
   const [selected, setSelected] = useState("text");
   const [body, setBody] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState([
     { completed: false, text: "", position: 0 },
   ]);
@@ -46,6 +48,8 @@ export default function NoteForm() {
 
   async function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
+    setError("");
+    setIsLoading(true);
     const data = {
       title: title,
       type: selected as NoteType,
@@ -58,20 +62,21 @@ export default function NoteForm() {
       data.body = "";
     }
     try {
-      await fetch("/api/notes", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
-    } catch (err) {
-      console.error(err);
+      await createNote(data);
+      redirect("/dashboard");
+    } catch (error) {
+      console.error(error);
+      setError("failed to create note. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
-    redirect("/dashboard");
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
         <legend className="fieldset-legend">Note Form</legend>
+        {error && <p>{error}</p>}
         <label>Title</label>
         <input
           className="input"
@@ -119,7 +124,7 @@ export default function NoteForm() {
             <label>List</label>
             {items.map((item: ChecklistItemData, idx) => (
               <ChecklistItem
-                key={item.id}
+                key={idx}
                 completed={item.completed}
                 text={item.text}
                 position={idx}
@@ -134,7 +139,7 @@ export default function NoteForm() {
           </>
         )}
         <button className="btn btn-primary" type="submit">
-          Save Note
+          {isLoading ? <span className="loading-spinner"></span> : "save note"}
         </button>
       </fieldset>
     </form>
