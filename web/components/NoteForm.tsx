@@ -63,20 +63,22 @@ export default function NoteForm() {
     }
     try {
       await createNote(data);
-      redirect("/dashboard");
     } catch (error) {
       console.error(error);
       setError("failed to create note. Please try again.");
+      return;
     } finally {
       setIsLoading(false);
     }
+
+    redirect("/dashboard");
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
         <legend className="fieldset-legend">Note Form</legend>
-        {error && <p>{error}</p>}
+        {error && <p className="alert alert-error alert-soft  ">{error}</p>}
         <label>Title</label>
         <input
           className="input"

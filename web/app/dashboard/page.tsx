@@ -1,4 +1,4 @@
-import NoteForm from "@/components/NoteForm";
+import NotesContainer from "@/components/NotesContainer";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -10,5 +10,10 @@ export default async function Dashboard() {
   if (!session) {
     redirect("/login");
   }
-  return <>hello, {session.user.username}</>;
+  return (
+    <>
+      hello, {session.user.username}
+      <NotesContainer />
+    </>
+  );
 }
