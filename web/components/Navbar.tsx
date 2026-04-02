@@ -8,7 +8,7 @@ export default async function Navbar() {
   });
 
   return (
-    <nav className="navbar bg-accent shadow-md">
+    <nav className="navbar shadow-md">
       <div className="navbar-start"></div>
       <div className="navbar-center">
         <Link

@@ -12,7 +12,6 @@ export default async function Dashboard() {
   }
   return (
     <>
-      hello, {session.user.username}
       <NotesContainer />
     </>
   );

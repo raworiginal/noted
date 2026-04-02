@@ -1,28 +1,33 @@
 import { NoteData } from "@/types/noteTypes";
+
 type NoteCardProps = {
   note: NoteData;
 };
+
 export default function NoteCard({ note }: NoteCardProps) {
-  if (note.type === "text") {
-    return (
-      <article className="card card-border card-xl w-96">
+  return (
+    <article className="card card-xs w-xs border border-accent">
+      <div className="card-body">
         <h2 className="card-title">{note.title}</h2>
-        <p className="card-body">{note.body}</p>
-      </article>
-    );
-  } else {
-    return (
-      <article className="card card-border">
-        <h2 className="card-title">{note.title}</h2>
-        <div className="card-body">
-          {note.items?.map((item) => (
-            <div className="flex gap-1">
-              <input type="checkbox" />
-              <p>{item.text}</p>
+        {note.type === "text" ? (
+          <p>{note.body}</p>
+        ) : (
+          note.items.map((i) => (
+            <div key={i.id} className="flex gap-1">
+              <input checked={i.completed} type="checkbox" />
+              <p>{i.text}</p>
             </div>
-          ))}
-        </div>
-      </article>
-    );
-  }
+          ))
+        )}
+      </div>
+      <div className="card-actions flex justify-center">
+        <button className="btn btn-xs" type="button">
+          delete
+        </button>
+        <button className="btn btn-xs" type="button">
+          edit
+        </button>
+      </div>
+    </article>
+  );
 }
